@@ -1,0 +1,44 @@
+# This code should be written in Python and deployed in Github Codespaces
+import requests
+import json
+
+# Telegram Bot API URL
+url = 'https://api.telegram.org/bot5339127989:AAFQfkmMa_lSON2580kJpDtEGpR4_Sj53jk/getUpdates'
+
+# ChatGPT API URL
+chatgpt_url = 'https://api.chatgpt.com/v1/conversations'
+
+# Create the request parameters
+payload = {
+    'url': 'https://example.com/webhook',
+    'allowed_updates': ['message'],
+}
+
+# Send the request
+response = requests.post('https://api.telegram.org/bot<your_bot_token>/setWebhook', data=payload)
+
+# Get the latest message from the Telegram bot
+response = requests.get(url)
+data = response.json()
+latest_message = data['result'][0]['message']['text']
+
+# If the message contains "Всегда рад пообщаться"
+if latest_message == 'Всегда рад пообщаться':
+    # Start a new conversation with ChatGPT
+    headers = {
+        'Content-Type': 'application/json'
+    }
+    payload = {
+        'prompt': 'Я хотел бы пообщаться с тобой'
+    }
+    response = requests.post(chatgpt_url, data=json.dumps(payload), headers=headers)
+    data = response.json()
+    conversation_id = data['conversation_id']
+
+    # Get the response from ChatGPT
+    response = requests.get(f'{chatgpt_url}/{conversation_id}')
+    data = response.json()
+    message = data['messages'][0]['text']
+
+    # Send the response from ChatGPT to the Telegram bot
+    response = requests.get(f'{url}/sendMessage?chat_id={data["chat_id"]}&text={message}')
