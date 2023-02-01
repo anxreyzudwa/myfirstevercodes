@@ -1,7 +1,3 @@
-# This code should be written in Python and deployed in Github Codespaces
-import requests
-import json
-
 # Telegram Bot API URL
 url = 'https://api.telegram.org/bot5339127989:AAFQfkmMa_lSON2580kJpDtEGpR4_Sj53jk/getUpdates'
 
@@ -12,6 +8,8 @@ chatgpt_url = 'https://api.chatgpt.com/v1/conversations'
 payload = {
     'url': 'https://github.com/anxreyzudwa/myfirstevercodes/commit/ebeef3f71ec88341d9d64c8af0c74f1adbeea8d8',
     'allowed_updates': ['message'],
+    'chat_id': @zudwabot,
+    'token': 5339127989:AAFQfkmMa_lSON2580kJpDtEGpR4_Sj53jk
 }
 
 # Send the request
@@ -41,4 +39,4 @@ if latest_message == 'Всегда рад пообщаться':
     message = data['messages'][0]['text']
 
     # Send the response from ChatGPT to the Telegram bot
-    response = requests.get(f'{url}/sendMessage?chat_id={data["chat_id"]}&text={message}')
+    response = requests.get(f'{url}/sendMessage?chat_id={data["chat_id"]}&text={message}&token={data["token"]}')
