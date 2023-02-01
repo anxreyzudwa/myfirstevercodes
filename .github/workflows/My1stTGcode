@@ -10,7 +10,7 @@ chatgpt_url = 'https://api.chatgpt.com/v1/conversations'
 
 # Create the request parameters
 payload = {
-    'url': 'https://example.com/webhook',
+    'url': 'https://github.com/anxreyzudwa/myfirstevercodes/commit/ebeef3f71ec88341d9d64c8af0c74f1adbeea8d8',
     'allowed_updates': ['message'],
 }
 
